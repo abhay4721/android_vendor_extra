@@ -1,8 +1,12 @@
-PATCHES_PATH=${ANDROID_BUILD_TOP}/vendor/extra/patches
 
-for project_name in $(cd "${PATCHES_PATH}" || exit; echo */); do
+VENDOR_EXTRA_PATH=$(gettop)/vendor/extra 
+VENDOR_PATCHES_PATH="${VENDOR_EXTRA_PATH}/patches"
+
+
+for project_name in $(cd "${VENDOR_PATCHES_PATH}" || exit; echo */); do
 	project_path="$(tr _ / <<<"$project_name")"
-	cd "${ANDROID_BUILD_TOP}" || exit
+
+	cd $(gettop) || exit
 	cd "${project_path}" || exit
 	echo "Applying patches for project: ${project_name} on ${HEAD_COMMIT}"
 	if ! git am "${PATCHES_PATH}"/"${project_name}"/*.patch --no-gpg-sign; then
@@ -10,7 +14,7 @@ for project_name in $(cd "${PATCHES_PATH}" || exit; echo */); do
 		git am --abort &> /dev/null
 	fi
 
-	cd "${ANDROID_BUILD_TOP}" || exit
+	cd $(gettop) || exit
 done
 
 
