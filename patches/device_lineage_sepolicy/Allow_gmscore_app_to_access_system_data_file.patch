@@ -1,0 +1,21 @@
+From 57d86eee77027fac7c7d3706d4a6ffbb94aba161 Mon Sep 17 00:00:00 2001
+From: SamarV-121 <samar@samarv121.dev>
+Date: Fri, 16 Feb 2024 17:31:03 +0530
+Subject: [PATCH] sepolicy: Allow gmscore_app to access system_data_file
+
+* Required for PixelPropsUtils to parse json downloaded by AttestationService.
+
+Change-Id: I7f899c08971f563e51fba22456a3fb3fa3ec12cc
+Signed-off-by: Pranav Vashi <neobuddy89@gmail.com>
+---
+ common/private/gmscore_app.te | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 common/private/gmscore_app.te
+
+diff --git a/common/private/gmscore_app.te b/common/private/gmscore_app.te
+new file mode 100644
+index 000000000..549ad5fc1
+--- /dev/null
++++ b/common/private/gmscore_app.te
+@@ -0,0 +1 @@
++allow gmscore_app system_data_file:file r_file_perms;
