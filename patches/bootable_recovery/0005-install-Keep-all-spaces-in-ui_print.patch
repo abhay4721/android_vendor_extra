@@ -1,0 +1,31 @@
+From d125a6aaca9fb182dcd90028d861e1a0b0017c2f Mon Sep 17 00:00:00 2001
+From: TH779 <i@779.moe>
+Date: Wed, 16 Feb 2022 15:45:15 +0800
+Subject: [PATCH 5/5] install: Keep all spaces in "ui_print"
+
+Co-authored-by: cjybyjk <cjybyjk@zjnu.edu.cn>
+Signed-off-by: TH779 <i@779.moe>
+Change-Id: Id3cf9bdccf032ed42c0046666ed0dbcf68339920
+Signed-off-by: Pranav Vashi <neobuddy89@gmail.com>
+---
+ install/install.cpp | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/install/install.cpp b/install/install.cpp
+index de195d7b..e1c6dcba 100644
+--- a/install/install.cpp
++++ b/install/install.cpp
+@@ -537,7 +537,9 @@ static InstallResult TryUpdateBinary(Package* package, bool* wipe_cache,
+         LOG(ERROR) << "invalid \"set_progress\" parameters: " << line;
+       }
+     } else if (command == "ui_print") {
+-      ui->PrintOnScreenOnly("%s\n", args.c_str());
++      // Keep all spaces
++      args = line.substr(space + 1);
++      ui->PrintOnScreenOnly("%s", args.c_str());
+       fflush(stdout);
+     } else if (command == "wipe_cache") {
+       *wipe_cache = true;
+-- 
+2.48.1
+
